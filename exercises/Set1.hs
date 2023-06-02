@@ -22,15 +22,15 @@ import Mooc.Todo
 -- values 1 and 2, respectively.
 one :: Int
 two :: Int
-one = 1 
-two = 2  
+one = 1
+two = 2
 
 ------------------------------------------------------------------------------
 -- Ex 2: define the function double of type Integer->Integer. Double
 -- should take one argument and return it multiplied by two.
 
 double :: Integer -> Integer
-double x = x * 2 
+double x = x * 2
 
 ------------------------------------------------------------------------------
 -- Ex 3: define the function quadruple that uses the function double
@@ -54,7 +54,8 @@ quadruple x = double x * 2
 --   distance 0 0 1 1  ==>  1.4142135...
 --   distance 1 1 4 5  ==>  5.0
 --
-distance x1 y1 x2 y2 = sqrt ((x1-y1)^2+(x2-y2)^2)
+distance :: Double -> Double -> Double -> Double -> Double
+distance x1 y1 x2 y2 = sqrt ((x1-x2)^2+(y1-y2)^2) 
 
 ------------------------------------------------------------------------------
 -- Ex 5: define the function eeny that returns "eeny" for even inputs
@@ -63,7 +64,7 @@ distance x1 y1 x2 y2 = sqrt ((x1-y1)^2+(x2-y2)^2)
 -- Ps. have a look at the built in function "even"
 
 eeny :: Integer -> String
-eeny x 
+eeny x
   | even x = "eeny"
   | otherwise = "meeny"
 
@@ -72,10 +73,10 @@ eeny x
 -- Modify it so that it accepts two passwords, "swordfish" and
 -- "mellon".
 
-checkPassword :: String -> String -> String
-checkPassword password password2
-                          | password == "swordfish" && password2 == "mellon" = "You're in."
-                          | otherwise = "ACCESS DENIED!"
+checkPassword :: String -> String
+checkPassword password
+  | password == "swordfish" || password == "mellon" = "You're in."
+  | otherwise = "ACCESS DENIED!"
 
 ------------------------------------------------------------------------------
 -- Ex 7: A postal service prices packages the following way.
@@ -99,9 +100,8 @@ postagePrice n
 --
 -- Ps. remember, the type of booleans in haskell is Bool
 isZero :: Integer -> Bool
-isZero = if conditio  
-then undefined
-  else undefined
+isZero 0 = True
+isZero _ = False
 
 ------------------------------------------------------------------------------
 -- Ex 9: implement using recursion a function sumTo such that
@@ -109,15 +109,16 @@ then undefined
 -- computes the sum 1+2+...+n
 
 sumTo :: Integer -> Integer
-sumTo n = todo
+sumTo 1 = 1
+sumTo n = n + sumTo (n - 1)
 
 ------------------------------------------------------------------------------
 -- Ex 10: power n k should compute n to the power k (i.e. n^k)
 -- Use recursion.
 
 power :: Integer -> Integer -> Integer
-power = todo
-
+power n 0 = 1
+power n k = n * power n (k - 1)
 ------------------------------------------------------------------------------
 -- Ex 11: ilog3 n should be the number of times you can divide given
 -- number by three (rounding down) before you get 0.
@@ -135,4 +136,6 @@ power = todo
 --   ilog3 7 ==> 2
 
 ilog3 :: Integer -> Integer
-ilog3 = todo
+ilog3 0 = 0 
+ilog3 n = 1 + ilog3(div n 3)
+
